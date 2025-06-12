@@ -1,0 +1,53 @@
+EC2
+
+sudo yum update
+sudo yum install python3
+sudo yum install python3-pip
+sudo pip3 install flask
+sudo yum install nginx
+
+
+Configure nginx to route traffic
+
+En /etc/nginx/
+crear directorios sites-enabled y sites-available
+
+en /etc/nginx/sites-enabled/configfile.conf
+server {
+        listen 80;
+        server_name 54.204.203.253;
+        location / {
+                proxy_pass http://127.0.0.1:8080;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+        }
+}
+
+link ambos 
+sudo ln -s /etc/nginx/sites-enabled/api.conf /etc/nginx/sites-available/
+
+en /etc/nginx/nginx.conf
+
+http{
+include /etc/nginx/sites-enabled/*;
+…
+}
+
+sudo nginx -t
+
+sudo service nginx restart
+o
+sudo systemctl restart nginx
+
+
+python3 app.py
+
+Lambda functions:
+
+Api Gateway:
+Crear api http
+Add a name,
+Integrations
+Lambda and choose the function
+Add Route
+Method: GET and the endpoint like /lambda
