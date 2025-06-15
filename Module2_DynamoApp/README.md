@@ -4,6 +4,14 @@ This project demonstrates how to build a serverless notes application using AWS 
 
 ---
 
+## DynamoDB and S3 setup
+
+Create a table in dynamo and set your partition key as chain, for example NoteID
+For the elements, content, title, fileURL and CreatedAt, use data type as String
+
+For the s3 bucket, give it a name, leave checked the option to block all public access, and enable version controlling
+
+
 ## IAM Policy for Lambda
 
 Create a role for Lambda functions with access to DynamoDB, S3, and CloudWatch Logs:
